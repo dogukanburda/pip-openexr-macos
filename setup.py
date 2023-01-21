@@ -22,11 +22,8 @@ https://github.com/sanguinariojoe/pip-openexr/issues
 
 
 print("Looking for libOpenEXR...")
-if platform.system() == "Linux" and system("ldconfig -p | grep libOpenEXR"):
-    # There is no libOpenEXR, probably an old version of OpenEXR
-    libraries=['Iex', 'Half', 'Imath', 'IlmImf', 'z']
-else:
-    libraries=['Iex', 'OpenEXR', 'z']
+
+libraries=['Iex', 'Half', 'Imath', 'IlmImf', 'z']
 
 extra_compile_args = ['-g', '-DVERSION="%s"' % VERSION]
 if platform.system() == 'Darwin':
@@ -49,10 +46,14 @@ setup(name='OpenEXR',
                             '/opt/local/include/OpenEXR',
                             '/usr/include/Imath',
                             '/usr/local/include/Imath',
-                            '/opt/local/include/Imath'],
+                            '/opt/local/include/Imath',
+                            '/opt/homebrew/opt/openexr@2/include/OpenEXR/',
+                            '/opt/homebrew/opt/ilmbase/include/OpenEXR'],
               library_dirs=['/usr/lib',
                             '/usr/local/lib',
-                            '/opt/local/lib'],
+                            '/opt/local/lib',
+                            '/opt/homebrew/opt/openexr@2/lib',
+                            '/opt/homebrew/opt/ilmbase/lib'],
               libraries=libraries,
               extra_compile_args=extra_compile_args)
   ],
